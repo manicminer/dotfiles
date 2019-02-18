@@ -1,0 +1,236 @@
+# These only work with zsh
+
+find_up() {
+  if [[ -n "${2}" ]]; then
+    _path="${2}"
+  else
+    _path="${PWD}"
+  fi
+  while [[ "${_path}" != "" && ! -e "${_path}/${1}" ]]; do
+    _path="${_path%/*}"
+  done
+  if [[ -n "${_path}" ]]; then
+    echo "${_path}/${1}"
+		return 0
+  fi
+	return 1
+}
+
+find_up_all() {
+  if [[ -n "${2}" ]]; then
+    _path="${2}"
+  else
+    _path="${PWD}"
+  fi
+  _result=()
+  while [[ "${_path}" != "" ]]; do
+    [[ -e "${_path}/${1}" ]] && _result+=("${_path}/${1}")
+    _path="${_path%/*}"
+  done
+  if [[ $#_result > 0 ]]; then
+    printf "%s\n" "${(Oa)_result[@]}"
+		return 0
+  fi
+	return 1
+}
+
+# portable way to generate md5 checksums
+_md5() {
+  if which md5sum 1>/dev/null 2>/dev/null; then
+    md5sum $@
+  elif which md5 1>/dev/null 2>/dev/null; then
+    echo "$(md5 $@ | grep -o "[a-f0-9]\{32\}")  ${@:-1}"
+  else
+    echo "no md5 checksum tool found" >&2
+    return 127
+  fi
+}
+
+# use gnu tools on macos where available
+gnu_exec() {
+  tool="${1}"
+  shift
+  case "${PLATFORM}" in
+    MacOS)
+      if whence -p "g${tool}" 1>/dev/null 2>/dev/null; then
+        command "g${tool}" $*
+      else
+        echo "command not found: g${tool}" >&2
+        return 127
+      fi
+      ;;
+    *)
+      if whence -p "g${tool}" 1>/dev/null 2>/dev/null; then
+        command "g${tool}" $*
+      else
+        "${tool}" $*
+      fi
+      ;;
+  esac
+}
+
+gsed() {
+  gnu_exec sed $*
+}
+
+greadlink() {
+  gnu_exec readlink $*
+}
+
+
+# set tmux window title
+wt() {
+  if [ -z "${@}" ]; then
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+  else
+    tmux rename-window "${@}"
+  fi
+}
+
+# ssh wrapper to set tmux window title
+ssh() {
+  setopt RE_MATCH_PCRE
+  if [ -n "${TMUX_PANE}" ]; then
+    for p; do
+      if [[ "${p}" =~ '^([^ ]+@)?([a-zA-Z0-9](?:(?:[a-zA-Z0-9-]*|(?<!-)\.(?![-.]))*[a-zA-Z0-9]+)?)$' ]]; then
+        title="$(echo "${p}" | sed -r 's/^([^ ]+@)?(.+)$/\2/')"
+        break
+      fi
+    done
+    wt "${title}"
+    command ssh "$@"
+    wt
+  else
+    command ssh "$@"
+  fi
+}
+
+# invoke ssh and attach/create tmux session on remote host
+tssh() {
+  # recognise a named session passed as the last argument
+  # this is crude, and means that:
+  # 1. the named session must be the last argument
+  # 2. if any other arguments other than the target host are passed, the session name must also be specified
+  # to be fixed up whenever there's nothing else to do
+  if [ -n "${2}" ]; then
+    SESSION_NAME="${@[-1]}"
+    SSH_ARGS="${@:1:-1}"
+  else
+    SESSION_NAME=tom
+    SSH_ARGS="${@}"
+  fi
+  CMD="ssh -t ${SSH_ARGS[*]} \"bash -l -c 'tmux at -t ${SESSION_NAME} || tmux new -s ${SESSION_NAME}'\""
+  eval $CMD
+}
+
+# use ssh completion for tssh function
+compdef tssh=ssh
+
+# print shell colours
+shellcolors() {
+	for x in {0..8}; do
+			for i in {30..37}; do
+					for a in {40..47}; do
+							echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "
+					done
+					echo
+			done
+	done
+	echo
+}
+
+# print the 256 colour palette
+prettycolors() {
+  for code in {000..255}; do print -P -- "$code: %F{$code}Pretty%f"; done
+}
+
+# set a custom suffix for liquidprompt
+prompt_env_suffix() {
+  if [ -n "${1}" ]; then
+    LP_PS1_POSTFIX=$'%{\e[0;34m%}{'"${*}"$'}%{\e[0m%} '
+  else
+    LP_PS1_POSTFIX=
+  fi
+}
+
+#function cd() {
+#  [[ "${SHELL}" =~ "zsh" ]] && emulate -LR zsh
+#  builtin cd $@
+#  result=$?
+#  last="${@:-1}"
+#  if [[ $result != 0 ]] && [[ "${last}" =~ "shits" ]]; then
+#    echo "Did you mean? ${last//shits/shifts}"
+#  fi
+#}
+
+_ENVRC=".envrc"
+_ENVRC_SUMFILE="${HOME}/.envrc.md5"
+
+chpwd() {
+  [[ "${SHELL}" =~ "zsh" ]] && emulate -LR zsh
+  [[ -o interactive ]] || return 0
+  [[ "${ZSH_SUBSHELL}" != "0" ]] && return 0
+  rcfile="$(find_up "${_ENVRC}" "${PWD}")"
+  [[ -n "${_ENVRC_SOURCED}" ]] && if [[ "${_ENVRC_SOURCED}" != "${rcfile}" ]] || [[ -z "${rcfile}" ]]; then
+    echo $'\e[0;32mUnloading '"${_ENVRC_SOURCED}"'\e[0m'
+    if typeset -f "envrc_destroy" >/dev/null; then
+      envrc_destroy
+      unset -f envrc_destroy
+    fi
+    _ENVRC_SOURCED=
+  fi
+  if [[ -z "${_ENVRC_SOURCED}" ]] && [[ "${PWD}" != "${HOME}" ]] && [[ -r "${rcfile}" ]]; then
+    [[ -f "${_ENVRC_SUMFILE}" ]] || touch "${_ENVRC_SUMFILE}"
+    md5="$(_md5 "${rcfile}")"
+    if grep -q "^${md5}$" "${_ENVRC_SUMFILE}"; then
+      echo $'\e[0;32mSourcing '"${rcfile}"'\e[0m'
+      source "${rcfile}"
+      _ENVRC_SOURCED=$rcfile
+    else
+      echo $'\e[0;31mUnknown '"${_ENVRC}"' found at '"${rcfile}"'. Run `envrc allow` to approve\e[0m' >&2
+    fi
+  fi
+}
+
+envrc() {
+  if [ -z "${2}" ]; then
+    _dir="${PWD}"
+    #rcfiles="$(find_up_all "${_ENVRC}" "${PWD}")"
+    rcfiles="$(find_up "${_ENVRC}" "${PWD}")"
+  else
+    _dir="$(\cd "${2%"${_ENVRC}"}" && pwd)"
+    rcfiles="${_dir}/${_ENVRC}"
+  fi
+  case "${1}" in
+    "allow")
+      while read -r rcfile; do
+        if [[ -n "${rcfile}" ]] && [[ -r "${rcfile}" ]]; then
+          vared -p "Allow ${rcfile}? [Y/n]: " -c confirm
+          if [[ "${confirm}" == "y" ]]; then
+            gsed -i '\| '"${rcfile}"'$|d' "${_ENVRC_SUMFILE}"
+            md5="$(_md5 "${rcfile}")"
+            echo "${md5}" >>"${_ENVRC_SUMFILE}"
+            echo $'\e[0;34mAllowed '"${rcfile}"'\e[0m'
+          fi
+        else
+          echo $'\e[0;31m'"${_ENVRC}"' not found at '"${_dir}"'\e[0m' >&2
+          return 1
+        fi
+      done <<<"${rcfiles}"
+      [[ "${_dir}" == "${PWD}" ]] && chdir "${_dir}"
+      ;;
+    "reload")
+      _ENVRC_SOURCED=
+      chpwd
+      ;;
+    "revoke")
+      if sed -i '\| '"${rcfile}"'$|d' "${_ENVRC_SUMFILE}"; then
+        echo $'\e[0;34mRevoked '"${rcfile}"'\e[0m'
+      else
+        echo $'\e[0;31mError revoking '"${rcfile}"'\e[0m' >&2
+      fi
+      ;;
+  esac
+}
+
+# vim: set ft=zsh ts=2 sts=2 sw=2 et:

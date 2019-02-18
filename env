@@ -1,0 +1,156 @@
+# Determine shell
+if [ -n "${ZSH_VERSION}" ]; then
+  _SHELL=zsh
+elif [ -n "${BASH_VERSION}" ]; then
+  _SHELL=bash
+else
+  _SHELL=sh
+fi
+
+# Email address
+EMAIL='tom@bamford.io'
+GIT_AUTHOR_EMAIL=$EMAIL
+export EMAIL GIT_AUTHOR_EMAIL
+
+# Default browser preference (used by sensible-browser on debian)
+for B in firefox chrome chromium elinks links2; do 
+  if which $B 2>/dev/null 1>/dev/null; then
+    export BROWSER=$B
+    break
+  fi
+done
+
+# Default pager (used by sensible-pager on debian)
+export PAGER=less
+
+# Default editor preference
+for E in vim vi nano; do
+  if which $E 2>/dev/null 1>/dev/null; then
+    export EDITOR=$E
+    break
+  fi
+done
+
+# Initial path
+PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/games:/usr/games"
+
+# Look for Vagrant
+[ -d /opt/vagrant/bin ] && PATH="$PATH:/opt/vagrant/bin"
+
+# Look for GNU gettext
+[ -d /usr/local/opt/gettext/bin ] && PATH="${PATH}:/usr/local/opt/gettext/bin"
+
+# Load system paths on Mac OS X
+if [ -f /etc/paths ]; then
+  for P in $(</etc/paths); do
+    PATH="$PATH:$P"
+  done
+fi
+
+# Search for additional paths on Mac OS X
+if [ -d /etc/paths.d ]; then
+  for F in $(find /etc/paths.d -mindepth 1 -maxdepth 1 -type d); do
+    for P in $(<$F); do
+      PATH="$PATH:$P"
+    done
+  done
+fi
+
+# Heroku Toolbelt
+[ -d /usr/local/heroku/bin ] && PATH="$PATH:/usr/local/heroku/bin"
+
+# Ruby Gems on Arch Linux
+#if which ruby 2>&1 >/dev/null; then
+#  export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
+#  PATH="$PATH:$GEM_HOME/bin"
+#fi
+
+# VMWare Fusion
+[ -d "/Applications/VMware Fusion.app/Contents/Library" ] && \
+  PATH="${PATH}:/Applications/VMware Fusion.app/Contents/Library"
+
+# Composer
+[ -d "${HOME}/.composer/vendor/bin" ] && PATH="${PATH}:${HOME}/.composer/vendor/bin"
+
+# choosenim
+[ -d "${HOME}/.nimble/bin" ] && PATH="${PATH}:${HOME}/.nimble/bin"
+
+# goenv
+[ -d "${HOME}/.goenv" ] && export GOENV_ROOT="${HOME}/.goenv"
+[ -n "${GOENV_ROOT}" ] && PATH="${GOENV_ROOT}/bin:${PATH}"
+
+# golang
+[ -d "/usr/local/go/bin" ] && PATH="${PATH}:/usr/local/go/bin"
+[ -d "${HOME}/go/bin" ] && PATH="${PATH}:${HOME}/go/bin"
+
+# rbenv
+[ -d "${HOME}/.rbenv" ] && PATH="${HOME}/.rbenv/bin:${PATH}"
+
+# pyenv
+[ -d "${HOME}/.pyenv" ] && export PYENV_ROOT="${HOME}/.pyenv"
+[ -n "${PYENV_ROOT}" ] && PATH="${PYENV_ROOT}/bin:${PATH}"
+
+# tfenv
+which tfenv 1>/dev/null 2>/dev/null || PATH="${HOME}/.tfenv/bin:${PATH}"
+
+# Export path
+export PATH
+
+# Determine platform
+uname="$(uname -a)"
+if [[ "${uname}" =~ "Darwin" ]]; then
+  PLATFORM=MacOS
+elif [[ "${uname}" =~ "Linux" ]]; then
+  PLATFORM=Linux
+else
+  PLATFORM="$(uname)"
+fi
+export PLATFORM
+
+# golang
+#[ -d "/usr/local/go" ] && export GOROOT="/usr/local/go"
+[ -d "${HOME}/go" ] && export GOPATH="${HOME}/go"
+
+# Line numbers for less
+export LESS="-NR"
+
+# Colours for less and manpages
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+# ls colours (OS X)
+export CLICOLOR=1
+
+# grep colors
+export GREP_COLOR='1;32' # BSD
+export GREP_COLORS='ms=01;32:mc=01;32:sl=:cx=:fn=34:ln=31:bn=31:se=36' # GNU
+# Quilt settings
+export QUILT_PATCHES=debian/patches
+export QUILT_REFRESH_ARGS="-p ab --no-timestamps --no-index"
+
+# Rack/Rails environment
+[ -z "$RACK_ENV" ] && export RACK_ENV=development
+[ -z "$RAILS_ENV" ] && export RAILS_ENV=development
+
+# Set HOSTNAME variable if empty
+[ -z "$HOSTNAME" ] && export HOSTNAME=$(hostname)
+
+# Ansible cow-free zone
+export ANSIBLE_NOCOWS=1
+
+# Disable Homebrew tracking
+export HOMEBREW_NO_ANALYTICS=1
+
+# Experimental force localization
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# Load secret env vars
+[ -e "${HOME}/secrets/env/default" ] && source "${HOME}/secrets/env/default"
+
+# vim: set ft=sh ts=2 sts=2 sw=2 et:

@@ -1,0 +1,42 @@
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias ldapvi="ldapvi -D cn=admin,dc=atpla,dc=net"
+alias vi="vim -p"
+alias vim="vim -p"
+alias view="vim -R"
+alias watch="watch -n1"
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+alias hr="\hr ="
+alias hr1="\hr 🍎"
+alias hr2="\hr 🍊"
+alias hr3="\hr 🍌"
+alias hr4="\hr 🍉"
+alias hr5="\hr 🍒"
+alias hr6="\hr 🥝"
+
+which colordiff 2>/dev/null 1>/dev/null && alias diff=colordiff
+
+alias curl="/usr/bin/env curl -K ~/.curlrc-local"
+
+alias boid="tssh -A boid.lan tom"
+alias home="tssh -A home.bamford.io tom"
+alias st="tssh -A sysadmin.atpla.net"
+
+# Open yml files with vim
+if [ "${_SHELL}" = "zsh" ]; then
+  alias -s yml=vim
+  alias -s yaml=vim
+fi
+
+if [ "${OSTYPE}" = "linux-gnu" ]; then
+  alias ls='ls --color'
+fi
+
+which hub 2>/dev/null 1>/dev/null && alias git=hub
+
+# vim: set ft=sh ts=2 sts=2 sw=2 et:

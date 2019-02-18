@@ -1,0 +1,20 @@
+Include config.d/*
+
+Host localhost
+#LogLevel QUIET
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+
+Host *
+ChallengeResponseAuthentication no
+HashKnownHosts no
+#PasswordAuthentication no
+ServerAliveInterval 30
+ServerAliveCountMax 6
+UseRoaming no
+IgnoreUnknown UseKeychain
+UseKeychain yes
+AddKeysToAgent yes
+
+Host *+*
+ProxyCommand ssh $(echo %h | sed 's/+[^+]*$//;s/\([^+%%]*\)%%\([^+]*\)$/\2 -l \1/;s/:/ -p /') exec nc -w1 $(echo %h | sed 's/^.*+//;/:/!s/$/ %p/;s/:/ /')

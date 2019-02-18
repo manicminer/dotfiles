@@ -1,0 +1,48 @@
+[alias]
+  co = checkout
+  d = difftool
+  fp = !git fetch -p && git pull
+  g = grep --break --heading --line-number
+  graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+  latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short) [%(committername)] %(contents:subject)'
+  root = !pwd
+  st = status -sb
+
+[color]
+  ui = true
+
+[core]
+  excludesfile = ~/.gitignore_global
+  pager = "less -FNRX"
+  #pager = "bat -l gitlog"
+  quotepath = false
+
+[diff]
+  tool = vimdiff
+
+[difftool]
+  prompt = false
+
+[grep]
+  extendRegexp = true
+  lineNumber = true
+
+[help]
+  autocorrect = 5
+
+[push]
+  default = simple
+
+[user]
+  name = Tom Bamford
+  email = tom@bamford.io
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
