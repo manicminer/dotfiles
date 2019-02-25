@@ -167,6 +167,10 @@ _ENVRC=".envrc"
 _ENVRC_SUMFILE="${HOME}/.envrc.md5"
 
 chpwd() {
+  source_envrc
+}
+
+source_envrc() {
   [[ "${SHELL}" =~ "zsh" ]] && emulate -LR zsh
   [[ -o interactive ]] || return 0
   [[ "${ZSH_SUBSHELL}" != "0" ]] && return 0
@@ -179,7 +183,7 @@ chpwd() {
     fi
     _ENVRC_SOURCED=
   fi
-  if [[ -z "${_ENVRC_SOURCED}" ]] && [[ "${PWD}" != "${HOME}" ]] && [[ -r "${rcfile}" ]]; then
+  if [[ "${1}" == "reload" || ( -z "${_ENVRC_SOURCED}" && "${PWD}" != "${HOME}" && -r "${rcfile}" ) ]]; then
     [[ -f "${_ENVRC_SUMFILE}" ]] || touch "${_ENVRC_SUMFILE}"
     md5="$(_md5 "${rcfile}")"
     if grep -q "^${md5}$" "${_ENVRC_SUMFILE}"; then
@@ -217,7 +221,7 @@ envrc() {
           return 1
         fi
       done <<<"${rcfiles}"
-      [[ "${_dir}" == "${PWD}" ]] && chdir "${_dir}"
+      [[ "${_dir}" == "${PWD}" ]] && source_envrc reload
       ;;
     "reload")
       _ENVRC_SOURCED=
