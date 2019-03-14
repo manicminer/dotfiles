@@ -153,4 +153,7 @@ export LC_ALL=en_US.UTF-8
 # Load secret env vars
 [ -e "${HOME}/secrets/env/default" ] && source "${HOME}/secrets/env/default"
 
+# Load local env vars
+[ -e "${HOME}/.env.local" ] && source "${HOME}/.env.local"
+
 # vim: set ft=sh ts=2 sts=2 sw=2 et:
