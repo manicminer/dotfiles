@@ -108,7 +108,11 @@ which rbenv 2>/dev/null 1>/dev/null && eval "$(rbenv init -)"
 [[ -e /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.zsh ]] && source /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.zsh
 
 # Load pyenv
-[[ -n "${PYENV_ROOT}" ]] && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"
+if which pyenv-virtualenv-init > /dev/null; then
+  eval "$(pyenv virtualenv-init -)"
+elif [[ -x "${PYENV_ROOT}/bin/pyenv" ]]; then
+  eval "$("${PYENV_ROOT}/bin/pyenv" virtualenv-init -)"
+fi
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # Load asdf
