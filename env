@@ -1,7 +1,7 @@
 # Determine shell
-if [ -n "${ZSH_VERSION}" ]; then
+if [[ -n "${ZSH_VERSION}" ]]; then
   _SHELL=zsh
-elif [ -n "${BASH_VERSION}" ]; then
+elif [[ -n "${BASH_VERSION}" ]]; then
   _SHELL=bash
 else
   _SHELL=sh
@@ -35,20 +35,20 @@ done
 PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/games:/usr/games"
 
 # Look for Vagrant
-[ -d /opt/vagrant/bin ] && PATH="$PATH:/opt/vagrant/bin"
+[[ -d /opt/vagrant/bin ]] && PATH="$PATH:/opt/vagrant/bin"
 
 # Look for GNU gettext
-[ -d /usr/local/opt/gettext/bin ] && PATH="${PATH}:/usr/local/opt/gettext/bin"
+[[ -d /usr/local/opt/gettext/bin ]] && PATH="${PATH}:/usr/local/opt/gettext/bin"
 
 # Load system paths on Mac OS X
-if [ -f /etc/paths ]; then
+if [[ -f /etc/paths ]]; then
   for P in $(</etc/paths); do
     PATH="$PATH:$P"
   done
 fi
 
 # Search for additional paths on Mac OS X
-if [ -d /etc/paths.d ]; then
+if [[ -d /etc/paths.d ]]; then
   for F in $(find /etc/paths.d -mindepth 1 -maxdepth 1 -type d); do
     for P in $(<$F); do
       PATH="$PATH:$P"
@@ -70,29 +70,29 @@ fi
 #fi
 
 # VMWare Fusion
-[ -d "/Applications/VMware Fusion.app/Contents/Library" ] && \
+[[ -d "/Applications/VMware Fusion.app/Contents/Library" ]] && \
   PATH="${PATH}:/Applications/VMware Fusion.app/Contents/Library"
 
 # Composer
-[ -d "${HOME}/.composer/vendor/bin" ] && PATH="${PATH}:${HOME}/.composer/vendor/bin"
+[[ -d "${HOME}/.composer/vendor/bin" ]] && PATH="${PATH}:${HOME}/.composer/vendor/bin"
 
 # choosenim
-[ -d "${HOME}/.nimble/bin" ] && PATH="${PATH}:${HOME}/.nimble/bin"
+[[ -d "${HOME}/.nimble/bin" ]] && PATH="${PATH}:${HOME}/.nimble/bin"
 
 # goenv
-[ -d "${HOME}/.goenv" ] && export GOENV_ROOT="${HOME}/.goenv"
-[ -n "${GOENV_ROOT}" ] && PATH="${GOENV_ROOT}/bin:${PATH}"
+[[ -d "${HOME}/.goenv" ]] && export GOENV_ROOT="${HOME}/.goenv"
+[[ -n "${GOENV_ROOT}" ]] && PATH="${GOENV_ROOT}/bin:${PATH}"
 
 # golang
-[ -d "/usr/local/go/bin" ] && PATH="${PATH}:/usr/local/go/bin"
-[ -d "${HOME}/go/bin" ] && PATH="${PATH}:${HOME}/go/bin"
+[[ -d "/usr/local/go/bin" ]] && PATH="${PATH}:/usr/local/go/bin"
+[[ -d "${HOME}/go/bin" ]] && PATH="${PATH}:${HOME}/go/bin"
 
 # rbenv
-[ -d "${HOME}/.rbenv" ] && PATH="${HOME}/.rbenv/bin:${PATH}"
+[[ -d "${HOME}/.rbenv" ]] && PATH="${HOME}/.rbenv/bin:${PATH}"
 
 # pyenv
-[ -d "${HOME}/.pyenv" ] && export PYENV_ROOT="${HOME}/.pyenv"
-[ -n "${PYENV_ROOT}" ] && PATH="${PYENV_ROOT}/bin:${PATH}"
+[[ -d "${HOME}/.pyenv" ]] && export PYENV_ROOT="${HOME}/.pyenv"
+[[ -n "${PYENV_ROOT}" ]] && PATH="${PYENV_ROOT}/bin:${PATH}"
 
 # tfenv
 which tfenv 1>/dev/null 2>/dev/null || PATH="${HOME}/.tfenv/bin:${PATH}"
@@ -112,8 +112,8 @@ fi
 export PLATFORM
 
 # golang
-#[ -d "/usr/local/go" ] && export GOROOT="/usr/local/go"
-[ -d "${HOME}/go" ] && export GOPATH="${HOME}/go"
+#[ -d "/usr/local/go" ]] && export GOROOT="/usr/local/go"
+[[ -d "${HOME}/go" ]] && export GOPATH="${HOME}/go"
 
 # Line numbers for less
 export LESS="-NR"
@@ -138,11 +138,11 @@ export QUILT_PATCHES=debian/patches
 export QUILT_REFRESH_ARGS="-p ab --no-timestamps --no-index"
 
 # Rack/Rails environment
-[ -z "$RACK_ENV" ] && export RACK_ENV=development
-[ -z "$RAILS_ENV" ] && export RAILS_ENV=development
+[[ -z "$RACK_ENV" ]] && export RACK_ENV=development
+[[ -z "$RAILS_ENV" ]] && export RAILS_ENV=development
 
 # Set HOSTNAME variable if empty
-[ -z "$HOSTNAME" ] && export HOSTNAME=$(hostname)
+[[ -z "$HOSTNAME" ]] && export HOSTNAME=$(hostname)
 
 # Ansible cow-free zone
 export ANSIBLE_NOCOWS=1
@@ -155,9 +155,9 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # Load secret env vars
-[ -e "${HOME}/secrets/env/default" ] && source "${HOME}/secrets/env/default"
+[[ -e "${HOME}/secrets/env/default" ]] && source "${HOME}/secrets/env/default"
 
 # Load local env vars
-[ -e "${HOME}/.env.local" ] && source "${HOME}/.env.local"
+[[ -e "${HOME}/.env.local" ]] && source "${HOME}/.env.local"
 
 # vim: set ft=sh ts=2 sts=2 sw=2 et:
