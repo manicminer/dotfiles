@@ -1,5 +1,7 @@
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
+alias rgrep='grep -r --exclude-dir=.git --exclude-dir=.terraform'
+alias ergrep='egrep -r --exclude-dir=.git --exclude-dir=.terraform'
 alias ldapvi="ldapvi -D cn=admin,dc=atpla,dc=net"
 alias vi="vim -p"
 alias vim="vim -p"
