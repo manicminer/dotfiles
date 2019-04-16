@@ -170,6 +170,10 @@ chpwd() {
   source_envrc
 }
 
+precmd() {
+  echo -ne "\033]0;${PWD/#${HOME}/~} \007"
+}
+
 source_envrc() {
   [[ "${SHELL}" =~ "zsh" ]] && emulate -LR zsh
   [[ -o interactive ]] || return 0

@@ -135,8 +135,14 @@ source "${HOME}/.aliases"
 source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Colours
-[[ -f "${HOME}/.base16-shell/base16-bright.dark.sh" ]] && \
-  source "${HOME}/.base16-shell/base16-bright.dark.sh"
+#[[ -f "${HOME}/.base16-shell/base16-bright.dark.sh" ]] && \
+#  source "${HOME}/.base16-shell/base16-bright.dark.sh"
+
+# Tab/window title
+if [[ -n "${ITERM_SESSION_ID}" ]]; then
+  DISABLE_AUTO_TITLE="true"
+  precmd
+fi
 
 # Prompt
 source "${HOME}/.liquidprompt/liquidprompt"
