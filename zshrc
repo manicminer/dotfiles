@@ -54,6 +54,10 @@ zstyle ':completion:*:kill:*' force-list always
 # Autocomplete aliased commands
 setopt completealiases
 
+# Autosuggestions
+[[ -f "${HOME}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
+  source "${HOME}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
 # Local bash-style completions
 #if [[ -d "${HOME}/.bash-completions" ]]; then
 #  for F in "${HOME}/.bash-completions"/*; do
@@ -110,8 +114,10 @@ which rbenv 2>/dev/null 1>/dev/null && eval "$(rbenv init -)"
 # Load pyenv
 if which pyenv-virtualenv-init > /dev/null; then
   eval "$(pyenv virtualenv-init -)"
+  eval "$(pyenv init -)"
 elif [[ -x "${PYENV_ROOT}/bin/pyenv" ]]; then
   eval "$("${PYENV_ROOT}/bin/pyenv" virtualenv-init -)"
+  eval "$("${PYENV_ROOT}/bin/pyenv" init -)"
 fi
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 

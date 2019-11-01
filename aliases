@@ -25,6 +25,7 @@ which colordiff 2>/dev/null 1>/dev/null && alias diff=colordiff
 
 alias curl="/usr/bin/env curl -K ~/.curlrc-local"
 
+alias ssh-notrust="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias boid="tssh -A boid.lan tom"
 alias home="tssh -A home.bamford.io tom"
 alias st="tssh -A sysadmin.atpla.net"
