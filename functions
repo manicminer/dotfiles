@@ -241,4 +241,8 @@ envrc() {
   esac
 }
 
+showcert() {
+  openssl s_client -connect ${1}:${2:-443} -servername ${1} -showcerts <<<"Q" | openssl x509 -text -noout
+}
+
 # vim: set ft=zsh ts=2 sts=2 sw=2 et:
