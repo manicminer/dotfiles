@@ -216,6 +216,7 @@ envrc() {
             echo "${md5}" >>"${_ENVRC_SUMFILE}"
             echo $'\e[0;34mAllowed '"${rcfile}"'\e[0m'
           fi
+          unset confirm
         else
           echo $'\e[0;31m'"${_ENVRC}"' not found at '"${_dir}"'\e[0m' >&2
           return 1
