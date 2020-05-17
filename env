@@ -150,6 +150,9 @@ export HOMEBREW_NO_ANALYTICS=1
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+# ulimit on MacOS
+[ "${PLATFORM}" = "MacOS" ] && ulimit -n 10240
+
 # Load secret env vars
 [ -e "${HOME}/secrets/env/default" ] && source "${HOME}/secrets/env/default"
 
