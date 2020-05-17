@@ -1,5 +1,7 @@
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
+alias rgrep='grep -r --exclude-dir=.git --exclude-dir=.terraform'
+alias ergrep='egrep -r --exclude-dir=.git --exclude-dir=.terraform'
 alias ldapvi="ldapvi -D cn=admin,dc=atpla,dc=net"
 alias vi="vim -p"
 alias vim="vim -p"
@@ -23,6 +25,7 @@ which colordiff 2>/dev/null 1>/dev/null && alias diff=colordiff
 
 alias curl="/usr/bin/env curl -K ~/.curlrc-local"
 
+alias ssh-notrust="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias boid="tssh -A boid.lan tom"
 alias home="tssh -A home.bamford.io tom"
 alias st="tssh -A sysadmin.atpla.net"

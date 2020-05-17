@@ -54,6 +54,10 @@ zstyle ':completion:*:kill:*' force-list always
 # Autocomplete aliased commands
 setopt completealiases
 
+# Autosuggestions
+[[ -f "${HOME}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
+  source "${HOME}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
 # Local bash-style completions
 #if [[ -d "${HOME}/.bash-completions" ]]; then
 #  for F in "${HOME}/.bash-completions"/*; do
@@ -108,7 +112,13 @@ which rbenv 2>/dev/null 1>/dev/null && eval "$(rbenv init -)"
 [[ -e /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.zsh ]] && source /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.zsh
 
 # Load pyenv
-[[ -n "${PYENV_ROOT}" ]] && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"
+if which pyenv-virtualenv-init > /dev/null; then
+  eval "$(pyenv virtualenv-init -)"
+  eval "$(pyenv init -)"
+elif [[ -x "${PYENV_ROOT}/bin/pyenv" ]]; then
+  eval "$("${PYENV_ROOT}/bin/pyenv" virtualenv-init -)"
+  eval "$("${PYENV_ROOT}/bin/pyenv" init -)"
+fi
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # Load asdf
@@ -131,8 +141,14 @@ source "${HOME}/.aliases"
 source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Colours
-[[ -f "${HOME}/.base16-shell/base16-bright.dark.sh" ]] && \
-  source "${HOME}/.base16-shell/base16-bright.dark.sh"
+#[[ -f "${HOME}/.base16-shell/base16-bright.dark.sh" ]] && \
+#  source "${HOME}/.base16-shell/base16-bright.dark.sh"
+
+# Tab/window title
+if [[ -n "${ITERM_SESSION_ID}" ]]; then
+  DISABLE_AUTO_TITLE="true"
+  precmd
+fi
 
 # Prompt
 source "${HOME}/.liquidprompt/liquidprompt"

@@ -5,19 +5,20 @@ filetype plugin indent on
 call plug#begin('~/.vim/plugged')
 
 " Syntax/highlighting
-Plug 'chase/vim-ansible-yaml'
+"Plug 'chase/vim-ansible-yaml'
 "Plug 'digitaltoad/vim-jade'
 "Plug 'groenewege/vim-less'
-Plug 'hail2u/vim-css3-syntax'
+"Plug 'hail2u/vim-css3-syntax'
 "Plug 'kchmck/vim-coffee-script'
-Plug 'leafgarland/typescript-vim'
-Plug 'martinda/Jenkinsfile-vim-syntax'
-Plug 'othree/html5.vim'
-Plug 'rodjek/vim-puppet'
+"Plug 'leafgarland/typescript-vim'
+"Plug 'martinda/Jenkinsfile-vim-syntax'
+"Plug 'othree/html5.vim'
+"Plug 'rodjek/vim-puppet'
 Plug 'scrooloose/syntastic'
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-git'
-Plug 'zah/nim.vim'
+"Plug 'tpope/vim-git'
+"Plug 'zah/nim.vim'
 
 " Text manipulation
 Plug 'godlygeek/tabular'

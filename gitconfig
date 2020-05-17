@@ -12,6 +12,7 @@
   ui = true
 
 [core]
+  autocrlf = input
   excludesfile = ~/.gitignore_global
   pager = "less -FNRX"
   #pager = "bat -l gitlog"
