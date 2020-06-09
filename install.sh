@@ -67,8 +67,8 @@ do_repo .authorize-aws https://github.com/manicminer/authorize-aws
 do_repo .base16-shell https://github.com/chriskempson/base16-shell
 do_repo .goenv https://github.com/syndbg/goenv
 do_repo .liquidprompt https://github.com/manicminer/liquidprompt
-#do_repo .pyenv https://github.com/yyuu/pyenv
-#do_repo .pyenv/plugins/pyenv-virtualenv https://github.com/yyuu/pyenv-virtualenv
+do_repo .pyenv https://github.com/yyuu/pyenv
+do_repo .pyenv/plugins/pyenv-virtualenv https://github.com/yyuu/pyenv-virtualenv
 do_repo .rbenv https://github.com/rbenv/rbenv && mkdir -pv "${HOME}/.rbenv/plugins"
 do_repo .rbenv/plugins/ruby-build https://github.com/rbenv/ruby-build
 do_repo .tfenv https://github.com/kamatama41/tfenv
