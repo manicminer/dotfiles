@@ -138,7 +138,8 @@ source "${HOME}/.functions"
 source "${HOME}/.aliases"
 
 # iTerm2 shell integration
-source "${HOME}/.iterm2_shell_integration.zsh"
+[[ "${TERM_PROGRAM}" == "iTerm.app" ]] && \
+  source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Colours
 #[[ -f "${HOME}/.base16-shell/base16-bright.dark.sh" ]] && \
