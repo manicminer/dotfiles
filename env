@@ -154,6 +154,9 @@ export HOMEBREW_NO_ANALYTICS=1
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+# gnupg
+export GPG_TTY="$(tty)"
+
 # ulimit on MacOS
 [ "${PLATFORM}" = "MacOS" ] && ulimit -n 10240
 

@@ -55,6 +55,7 @@ get_file() {
 }
 
 mkdir -pv "${HOME}/.azure"
+mkdir -pv "${HOME}/.gnupg"
 mkdir -pv "${HOME}/.pyenv" && chmod 0755 "${HOME}/.pyenv"
 mkdir -pv "${HOME}/.ssh" && chmod 0700 "${HOME}/.ssh"
 chmod -v 0640 "${DIR}/ssh"/*
@@ -85,6 +86,12 @@ for D in $DOTFILES; do
   ln ${LN_FLAGS} "$(relative "$(dirname "${HOME}/.${D}")" "${DIR}/${D}")" "${HOME}/.${D}"
 done
 echo -n $'\e[0m'
+
+if [[ "${PLATFORM}" == "MacOS" ]]; then
+  for D in gnupg/gpg.conf gnupg/gpg-agent.conf; do
+    ln ${LN_FLAGS} "$(relative "$(dirname "${HOME}/.${D}")" "${DIR}/${D}")" "${HOME}/.${D}"
+  done
+fi
 
 out Linking zsh completions
 echo -n $'\e[0;92m'
