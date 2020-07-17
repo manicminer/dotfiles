@@ -11,6 +11,9 @@
 [color]
   ui = true
 
+[commit]
+  gpgsign = true
+
 [core]
   autocrlf = input
   excludesfile = ~/.gitignore_global
@@ -24,6 +27,15 @@
 [difftool]
   prompt = false
 
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
+	process = git-lfs filter-process
+
+[gpg]
+  program = gpg
+
 [grep]
   extendRegexp = true
   lineNumber = true
@@ -31,22 +43,16 @@
 [help]
   autocorrect = 5
 
+[http]
+	cookiefile = /Users/tom/.gitcookies
+
+[merge]
+  renamelimit = 999999
+
 [push]
   default = simple
 
 [user]
   name = Tom Bamford
   email = tom@bamford.io
-[difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path = 
-[mergetool "sourcetree"]
-  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
-[filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  required = true
-	process = git-lfs filter-process
-[http]
-	cookiefile = /Users/tom/.gitcookies
+	signingkey = F70C3D21
