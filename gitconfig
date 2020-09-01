@@ -49,6 +49,9 @@
 [merge]
   renamelimit = 999999
 
+[pull]
+  rebase = false
+
 [push]
   default = simple
 
