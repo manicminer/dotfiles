@@ -56,6 +56,7 @@ get_file() {
 
 mkdir -pv "${HOME}/.azure"
 mkdir -pv "${HOME}/.gnupg"
+chmod 0700 "${HOME}/.gnupg"
 mkdir -pv "${HOME}/.pyenv" && chmod 0755 "${HOME}/.pyenv"
 mkdir -pv "${HOME}/.ssh" && chmod 0700 "${HOME}/.ssh"
 chmod -v 0640 "${DIR}/ssh"/*
@@ -63,15 +64,15 @@ mkdir -pv "${HOME}/.vim"/{autoload,colors}
 mkdir -pv "${HOME}/.zsh/completions"
 mkdir -pv "${HOME}/bin" && chmod 0755 "${HOME}/bin"
 
-do_repo .asdf https://github.com/asdf-vm/asdf v0.5.0
-do_repo .authorize-aws https://github.com/manicminer/authorize-aws
-do_repo .base16-shell https://github.com/chriskempson/base16-shell
+#do_repo .asdf https://github.com/asdf-vm/asdf v0.5.0
+#do_repo .authorize-aws https://github.com/manicminer/authorize-aws
+#do_repo .base16-shell https://github.com/chriskempson/base16-shell
 do_repo .goenv https://github.com/syndbg/goenv
 do_repo .liquidprompt https://github.com/manicminer/liquidprompt
 do_repo .pyenv https://github.com/yyuu/pyenv
 do_repo .pyenv/plugins/pyenv-virtualenv https://github.com/yyuu/pyenv-virtualenv
-do_repo .rbenv https://github.com/rbenv/rbenv && mkdir -pv "${HOME}/.rbenv/plugins"
-do_repo .rbenv/plugins/ruby-build https://github.com/rbenv/ruby-build
+#do_repo .rbenv https://github.com/rbenv/rbenv && mkdir -pv "${HOME}/.rbenv/plugins"
+#do_repo .rbenv/plugins/ruby-build https://github.com/rbenv/ruby-build
 do_repo .tfenv https://github.com/kamatama41/tfenv
 do_repo .zsh/zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
 get_file https://raw.githubusercontent.com/Azure/azure-cli/dev/az.completion .az.completion
