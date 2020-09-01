@@ -79,7 +79,7 @@ get_file https://raw.githubusercontent.com/Azure/azure-cli/dev/az.completion .az
 
 [ -e "${HOME}/bin/authorize-aws" ] || ln ${LN_FLAGS} "../.authorize-aws/authorize-aws" "${HOME}/bin/authorize-aws"
 
-DOTFILES="aliases bash-completions bashrc colordiffrc curlrc-local env functions gitconfig gitignore_global iterm2_shell_integration.zsh liquidpromptrc my.cnf ssh/authorized_keys ssh/config ssh/rc tmux.conf vim/autoload/plug.vim vim/colors/base16*.vim vimrc zshrc"
+DOTFILES="aliases bash-completions bashrc colordiffrc curlrc-local env functions gitconfig gitignore_global ideavimrc iterm2_shell_integration.zsh liquidpromptrc my.cnf ssh/authorized_keys ssh/config ssh/rc tmux.conf vim/autoload/plug.vim vim/colors/base16*.vim vimrc zshrc"
 
 out Linking dotfiles
 echo -n $'\e[0;92m'
