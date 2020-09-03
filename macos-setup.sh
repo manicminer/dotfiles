@@ -71,6 +71,7 @@ dockutil --remove App\ Store
 dockutil --remove System\ Preferences
 dockutil --add /Applications/iTerm.app --position 1
 dockutil --add /Applications/Firefox.app --position 2
+dockutil --add "/Applications/Firefox Developer Edition.app" --position 3
 dockutil --add /Applications/Slack.app --after Safari
 dockutil --add /Applications/Fantastical.app --after Mail
 dockutil --add /Applications/zoom.us.app --after Fantastical
