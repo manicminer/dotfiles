@@ -42,10 +42,10 @@ brew install azure-cli
 
 brew cask install bitwarden 1password 1password-cli
 brew cask install boom-3d charles docker iterm2 istat-menus karabiner-elements little-snitch keepingyouawake moom
-brew cask install choosy dropbox fantastical slack zoomus
+brew cask install choosy dropbox fantastical slack vlc zoomus
 brew cask install firefox homebrew/cask-versions/firefox-developer-edition
 brew cask install gitkraken goland visual-studio-code
-brew cask install microsoft-office omnigraffle spotify
+brew cask install microsoft-office microsoft-teams omnigraffle spotify
 brew cask install parallels the-unarchiver wireshark
 
 brew cask install little-snitch
