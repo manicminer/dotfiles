@@ -37,7 +37,7 @@ brew cask install avibrazil-rdm
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 0
 
 brew install coreutils moreutils findutils gnupg pinentry-mac gnu-sed bash zsh curl dos2unix gettext hugo mtr nmap tree pwgen rsync telnet tofrodos watch wget whois
-brew install bitwarden-cli git tmux vim
+brew install bitwarden-cli git gh tmux vim
 brew install azure-cli
 
 brew cask install bitwarden 1password 1password-cli
