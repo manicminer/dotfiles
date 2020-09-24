@@ -36,7 +36,7 @@ brew cask install avibrazil-rdm
 # disable macos firewall (prefer little snitch)
 sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 0
 
-brew install coreutils moreutils findutils gnupg pinentry-mac gnu-sed bash zsh curl dos2unix gettext hugo mtr nmap tree pwgen rsync telnet tofrodos watch wget whois
+brew install coreutils moreutils findutils gnupg pinentry-mac gnu-sed bash zsh curl dos2unix gettext hugo jq mtr nmap tree pwgen rsync telnet tofrodos watch wget whois
 brew install bitwarden-cli git gh tmux vim
 brew install azure-cli
 
