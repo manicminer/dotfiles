@@ -105,6 +105,7 @@ bindkey "^X^E" edit-command-line
 #which direnv 2>/dev/null 1>/dev/null && eval "$(direnv hook zsh)"
 
 # Load goenv
+export GOENV_DISABLE_GOPATH=1
 [[ -n "${GOENV_ROOT}" ]] && eval "$(goenv init -)"
 
 # Load rbenv
