@@ -1,6 +1,6 @@
 [alias]
+  b = branch -vv --sort=-committerdate
   co = checkout
-  d = difftool
   fp = !git fetch -p && git pull
   g = grep --break --heading --line-number
   graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
@@ -45,6 +45,9 @@
 
 [http]
 	cookiefile = /Users/tom/.gitcookies
+
+[init]
+  defaultBranch = main
 
 [merge]
   renamelimit = 999999
