@@ -1,6 +1,7 @@
 .DS_Store
 .envrc
 .idea
+*.swo
 *.swp
 *.backup*
 *.bak*
