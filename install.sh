@@ -73,7 +73,7 @@ do_repo .pyenv https://github.com/yyuu/pyenv
 do_repo .pyenv/plugins/pyenv-virtualenv https://github.com/yyuu/pyenv-virtualenv
 #do_repo .rbenv https://github.com/rbenv/rbenv && mkdir -pv "${HOME}/.rbenv/plugins"
 #do_repo .rbenv/plugins/ruby-build https://github.com/rbenv/ruby-build
-do_repo .tfenv https://github.com/kamatama41/tfenv
+do_repo .tfenv https://github.com/tfutils/tfenv
 do_repo .zsh/zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
 get_file https://raw.githubusercontent.com/Azure/azure-cli/dev/az.completion .az.completion
 
