@@ -246,4 +246,39 @@ showcert() {
   openssl s_client -connect ${1}:${2:-443} -servername ${1} -showcerts <<<"Q" | openssl x509 -text -noout
 }
 
+az_version() {
+  python_version="3.10.0"
+  version="${1}"
+
+  if [[ "${version}" == "" ]]; then
+    echo "No version specified!" >&2
+    echo "Available versions:" >&2
+    pyenv versions | grep "${python_version}/envs/azure-cli-" | sed "s,${python_version}/envs/azure-cli-\([0-9.]*\).*,\1," 1>&2
+    return 1
+  fi
+
+  new_pyenv_version="${python_version}/envs/azure-cli-${version}"
+  old_pyenv_version="$(pyenv version | cut -d' ' -f1)"
+  old_version="$(pyenv version | cut -d' ' -f1 | sed "s,${python_version}/envs/azure-cli-,,")"
+
+  [[ "${new_pyenv_version}" == "${old_pyenv_version}" ]] && return 0
+
+  if [[ -d "${HOME}/.azure" ]]; then
+    old_config_version="null"
+    [[ -r "${HOME}/.azure/versionCheck.json" ]] && old_config_version="$(jq -r '.versions["azure-cli"].local' <"${HOME}/.azure/versionCheck.json")"
+    if [[ "${old_config_version}" == "null" ]]; then
+      mv "${HOME}/.azure" "${HOME}/.azure-${old_config_version}"
+    else
+      mv "${HOME}/.azure" "${HOME}/.azure-${old_version}"
+    fi
+  fi
+
+  pyenv versions | grep -q "${new_pyenv_version}" || pyenv virtualenv "${python_version}" "azure-cli-${version}"
+  pyenv local "${new_pyenv_version}"
+  pip list 2>/dev/null | grep -q "azure-cli" || pip install azure-cli==${version}
+
+  [[ -d "${HOME}/.azure-${version}" ]] && mv "${HOME}/.azure-${version}" "${HOME}/.azure"
+  az version
+}
+
 # vim: set ft=zsh ts=2 sts=2 sw=2 et:

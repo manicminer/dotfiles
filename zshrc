@@ -115,7 +115,7 @@ which rbenv 2>/dev/null 1>/dev/null && eval "$(rbenv init -)"
 # Load pyenv
 if which pyenv-virtualenv-init > /dev/null; then
   eval "$(pyenv virtualenv-init -)"
-  eval "$(pyenv init -)"
+  eval "$(pyenv init --path)"
 elif [[ -x "${PYENV_ROOT}/bin/pyenv" ]]; then
   eval "$("${PYENV_ROOT}/bin/pyenv" virtualenv-init -)"
   eval "$("${PYENV_ROOT}/bin/pyenv" init -)"
