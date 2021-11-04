@@ -1,3 +1,6 @@
+[advice]
+  detachedHead = false
+
 [alias]
   b = branch -vv --sort=-committerdate
   co = checkout
@@ -15,7 +18,7 @@
   gpgsign = true
 
 [core]
-  autocrlf = input
+  autocrlf = false
   excludesfile = ~/.gitignore_global
   pager = "less -FNRX"
   #pager = "bat -l gitlog"
