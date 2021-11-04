@@ -97,6 +97,9 @@ fi
 # tfenv
 which tfenv 1>/dev/null 2>/dev/null || PATH="${HOME}/.tfenv/bin:${PATH}"
 
+# .NET Core SDK tools
+[[ -d "${HOME}/.dotnet/tools" ]] && PATH="$PATH:${HOME}/.dotnet/tools"
+
 # Export path
 export PATH
 
