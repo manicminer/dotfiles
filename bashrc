@@ -158,6 +158,9 @@ source "${HOME}/.liquidprompt/liquidprompt"
 # Load site-local bashrc
 [ -e "${HOME}/.bashrc.local" ] && source "${HOME}/.bashrc.local"
 
+# Suppress bash suppression on macOS :/
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # Be truthful
 true
 

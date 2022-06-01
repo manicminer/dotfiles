@@ -153,6 +153,16 @@ export ANSIBLE_NOCOWS=1
 # Disable Homebrew tracking
 export HOMEBREW_NO_ANALYTICS=1
 
+# Homebrew
+if [[ -d "/opt/homebrew" ]]; then
+  export HOMEBREW_PREFIX="/opt/homebrew"
+  export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+  export HOMEBREW_REPOSITORY="/opt/homebrew"
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
+  export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
+  export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+fi
+
 # Experimental force localization
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8

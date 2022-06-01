@@ -261,7 +261,7 @@ az_version() {
   old_pyenv_version="$(pyenv version | cut -d' ' -f1)"
   old_version="$(pyenv version | cut -d' ' -f1 | sed "s,${python_version}/envs/azure-cli-,,")"
 
-  [[ "${new_pyenv_version}" == "${old_pyenv_version}" ]] && return 0
+  #[[ "${new_pyenv_version}" == "${old_pyenv_version}" ]] && return 0
 
   if [[ -d "${HOME}/.azure" ]]; then
     old_config_version="null"
@@ -276,6 +276,7 @@ az_version() {
   pyenv versions | grep -q "${new_pyenv_version}" || pyenv virtualenv "${python_version}" "azure-cli-${version}"
   pyenv local "${new_pyenv_version}"
   pip list 2>/dev/null | grep -q "azure-cli" || pip install azure-cli==${version}
+  rehash
 
   [[ -d "${HOME}/.azure-${version}" ]] && mv "${HOME}/.azure-${version}" "${HOME}/.azure"
   az version
