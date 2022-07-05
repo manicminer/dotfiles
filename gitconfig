@@ -4,7 +4,7 @@
 [alias]
   b = branch -vv --sort=-committerdate
   co = checkout
-  fp = !git fetch -p && git pull
+  fp = !git fetch -p && git pull && git submodule update --init
   g = grep --break --heading --line-number
   graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
   latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short) [%(committername)] %(contents:subject)'

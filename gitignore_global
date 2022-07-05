@@ -2,6 +2,7 @@
 .envrc
 .idea
 .vs
+*.iml
 *.swo
 *.swp
 *.backup*
