@@ -37,6 +37,9 @@
   required = true
 	process = git-lfs filter-process
 
+[gc]
+  auto = 0
+
 [gpg]
   program = gpg
 
