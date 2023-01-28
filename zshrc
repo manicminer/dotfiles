@@ -113,7 +113,7 @@ which rbenv 2>/dev/null 1>/dev/null && eval "$(rbenv init -)"
 [[ -e /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.zsh ]] && source /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.zsh
 
 # Load pyenv
-if which pyenv-virtualenv-init > /dev/null; then
+if which pyenv-virtualenv-init 1>/dev/null 2>/dev/null; then
   eval "$(pyenv virtualenv-init -)"
   eval "$(pyenv init --path)"
 elif [[ -x "${PYENV_ROOT}/bin/pyenv" ]]; then
