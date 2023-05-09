@@ -109,8 +109,8 @@ export GOENV_DISABLE_GOPATH=1
 [[ -n "${GOENV_ROOT}" ]] && eval "$(goenv init -)"
 
 # Load rbenv
-which rbenv 2>/dev/null 1>/dev/null && eval "$(rbenv init -)"
-[[ -e /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.zsh ]] && source /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.zsh
+#which rbenv 2>/dev/null 1>/dev/null && eval "$(rbenv init -)"
+#[[ -e /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.zsh ]] && source /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.zsh
 
 # Load pyenv
 if which pyenv-virtualenv-init 1>/dev/null 2>/dev/null; then
@@ -142,8 +142,8 @@ fi
 # AWS CLI completion
 #which aws_zsh_completer.sh 2>/dev/null 1>/dev/null && source "$(which aws_zsh_completer.sh)"
 
-# Azure CLI completion
-[[ -f "${HOME}/.az.completion" ]] && source "${HOME}/.az.completion"
+# Azure CLI completion (very slow)
+#[[ -f "${HOME}/.az.completion" ]] && source "${HOME}/.az.completion"
 
 # Shell functions
 source "${HOME}/.functions"
@@ -166,7 +166,10 @@ if [[ -n "${ITERM_SESSION_ID}" ]]; then
 fi
 
 # Prompt
-source "${HOME}/.liquidprompt/liquidprompt"
+if [[ -f "$(brew --prefix)/share/zsh/site-functions/prompt_pure_setup" ]]; then
+  autoload -U promptinit; promptinit
+  prompt pure
+fi
 
 # Site-local zshrc
 [[ -e "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
