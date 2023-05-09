@@ -185,15 +185,15 @@ source_envrc() {
       envrc_destroy
       unset -f envrc_destroy
     fi
-    _ENVRC_SOURCED=
+    unset _ENVRC_SOURCED
   fi
   if [[ "${1}" == "reload" || ( -z "${_ENVRC_SOURCED}" && "${PWD}" != "${HOME}" && -r "${rcfile}" ) ]]; then
     [[ -f "${_ENVRC_SUMFILE}" ]] || touch "${_ENVRC_SUMFILE}"
     md5="$(_md5 "${rcfile}")"
     if grep -q "^${md5}$" "${_ENVRC_SUMFILE}"; then
       echo $'\e[0;32mSourcing '"${rcfile}"'\e[0m'
+      export _ENVRC_SOURCED=$rcfile
       source "${rcfile}"
-      _ENVRC_SOURCED=$rcfile
     else
       echo $'\e[0;31mUnknown '"${_ENVRC}"' found at '"${rcfile}"'. Run `envrc allow` to approve\e[0m' >&2
     fi

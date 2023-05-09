@@ -1,5 +1,5 @@
 .DS_Store
-.envrc
+.envrc*
 .idea
 .vs
 *.iml
