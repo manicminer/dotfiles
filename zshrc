@@ -35,6 +35,11 @@ unsetopt beep
 # Don't bug about using `rm *`
 unsetopt normstarsilent
 
+# Prompt
+fpath+=($HOME/.zsh/pure)
+autoload -U promptinit; promptinit
+prompt pure
+
 # Autocompletion
 fpath=("${HOME}/.zsh/completions" $fpath)
 autoload -Uz compinit && if ! [[ -e "${HOME}/zcompdump" ]] || [[ -n "${HOME}/.zcompdump"(#qN.mh+24) ]]; then compinit; else compinit -C; fi
@@ -105,8 +110,10 @@ bindkey "^X^E" edit-command-line
 #which direnv 2>/dev/null 1>/dev/null && eval "$(direnv hook zsh)"
 
 # Load goenv
-export GOENV_DISABLE_GOPATH=1
-[[ -n "${GOENV_ROOT}" ]] && eval "$(goenv init -)"
+if [[ -d "${HOME}"/.goenv ]]; then
+  export GOENV_DISABLE_GOPATH=1
+  [[ -n "${GOENV_ROOT}" ]] && eval "$(goenv init -)"
+fi
 
 # Load rbenv
 #which rbenv 2>/dev/null 1>/dev/null && eval "$(rbenv init -)"
@@ -163,12 +170,6 @@ source "${HOME}/.aliases"
 if [[ -n "${ITERM_SESSION_ID}" ]]; then
   DISABLE_AUTO_TITLE="true"
   precmd
-fi
-
-# Prompt
-if [[ -f "$(brew --prefix)/share/zsh/site-functions/prompt_pure_setup" ]]; then
-  autoload -U promptinit; promptinit
-  prompt pure
 fi
 
 # Site-local zshrc
