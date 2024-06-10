@@ -98,6 +98,7 @@ GOENV_ROOT="${HOME}/.goenv"
 if [[ -d "${GOENV_ROOT}" ]]; then
   PATH="${GOENV_ROOT}/bin:${GOENV_ROOT}/shims:${PATH}"
   export GOENV_ROOT
+  export GOENV_DISABLE_GOPATH=1
 fi
 
 # golang
@@ -135,8 +136,8 @@ export PLATFORM
 #[ -d "/usr/local/go" ]] && export GOROOT="/usr/local/go"
 [[ -d "${HOME}/go" ]] && export GOPATH="${HOME}/go"
 
-# Line numbers for less
-export LESS="-NR"
+# Line numbers, color support and search insensitivity for less
+export LESS="-NRi"
 
 # Colours for less and manpages
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -173,6 +174,9 @@ export LC_ALL=en_US.UTF-8
 
 # gnupg
 export GPG_TTY="$(tty)"
+
+# Azure Developer CLI (azd) no telemetry
+export AZURE_DEV_COLLECT_TELEMETRY=no
 
 # ulimit on MacOS
 [ "${PLATFORM}" = "MacOS" ] && ulimit -n 10240

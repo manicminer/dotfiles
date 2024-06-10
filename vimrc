@@ -54,3 +54,9 @@ set tabstop=2
 set wildmenu
 
 command! MakeTags !ctags -R .
+
+try
+  source ~/.vimrc.local
+catch
+  " ignore missing local vimrc
+endtry

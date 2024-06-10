@@ -3,7 +3,7 @@
 # for examples
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+[[ -z "$PS1" ]] && return
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
@@ -30,10 +30,10 @@ shopt -s extglob
 shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+if [[ -z "$debian_chroot" ]] && [[ -r /etc/debian_chroot ]]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
@@ -47,8 +47,8 @@ esac
 # should be on the output of commands, not on the prompt
 force_color_prompt=yes
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+if [[ -n "$force_color_prompt" ]]; then
+    if [[ -x /usr/bin/tput ]] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
 	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
 	# a case would tend to support setf rather than setaf.)
@@ -58,7 +58,7 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
+if [[ "$color_prompt" = yes ]]; then
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
     #PS1="${debian_chroot:+($debian_chroot)}\[\e[32;1m\]\u\[\e[0m\]@\[\e[37;1m\]\h\[\e[0m\]:\[\e[34;1m\]\w\`parse_git_branch\`\[\e[32;1m\]\\$\[\e[0m\] "
     PROMPT_COMMAND=parse_prompt
@@ -77,7 +77,7 @@ xterm*|rxvt*)
 esac
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
+if [[ -x /usr/bin/dircolors ]]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
@@ -98,14 +98,14 @@ alias l='ls -CF'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Load aliases from a shell-neutral aliases file
-if [ -f ~/.aliases ]; then
+if [[ -f ~/.aliases ]]; then
     . ~/.aliases
 fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
@@ -116,7 +116,7 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 function parse_prompt {
     PS1="${debian_chroot:+($debian_chroot)}\[$BGreen\]\u\[$Colour_Off\]@\[$BWhite\]\h\[$Colour_Off\]:\[$BBlue\]\w"
     
-    if [ "$(type -t __git_ps1)" == 'function' ]; then
+    if [[ "$(type -t __git_ps1)" == 'function' ]]; then
         if ! git status 2>/dev/null | grep -q 'nothing to commit (working directory clean)'; then
             PS1="$PS1$BPurple`__git_ps1`$Colour_Off"
         else
@@ -137,26 +137,26 @@ function parse_prompt {
 }
 
 # Load environment variables
-[ -e "${HOME}/.env" ] && source "${HOME}/.env"
+[[ -e "${HOME}/.env" ]] && source "${HOME}/.env"
 
 # direnv
 #which direnv 2>/dev/null 1>/dev/null && eval "$(direnv hook bash)"
 
 # Load goenv
-[ -n "${GOENV_ROOT}" ] && eval "$(goenv init -)"
+[[ -n "${GOENV_ROOT}" ]] && [[ -d "${GOENV_ROOT}" ]] && eval "$(goenv init -)"
 
 # Load rbenv
 which rbenv 2>/dev/null 1>/dev/null && eval "$(rbenv init -)"
-[ -e /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.bash ] && source /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.bash
+[[ -e /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.bash ]] && source /usr/local/Cellar/rbenv/1.0.0/completions/rbenv.bash
 
 # pyenv
-[ -n "${PYENV_ROOT}" ] && eval "$(pyenv init -)"
+[[ -n "${PYENV_ROOT}" ]] && eval "$(pyenv init -)"
 
 # Prompt
 source "${HOME}/.liquidprompt/liquidprompt"
 
 # Load site-local bashrc
-[ -e "${HOME}/.bashrc.local" ] && source "${HOME}/.bashrc.local"
+[[ -e "${HOME}/.bashrc.local" ]] && source "${HOME}/.bashrc.local"
 
 # Suppress bash suppression on macOS :/
 export BASH_SILENCE_DEPRECATION_WARNING=1
