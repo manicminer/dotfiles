@@ -5,6 +5,9 @@ Host localhost
 StrictHostKeyChecking no
 UserKnownHostsFile /dev/null
 
+Host *.manicminer.io
+StrictHostKeyChecking no
+
 Host *
 ChallengeResponseAuthentication no
 HashKnownHosts no
