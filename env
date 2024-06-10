@@ -32,7 +32,7 @@ for E in vim vi nano; do
 done
 
 # Initial path
-PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/games:/usr/games"
+PATH="$HOME/bin:$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/games:/usr/games"
 
 # Look for Vagrant
 [[ -d /opt/vagrant/bin ]] && PATH="$PATH:/opt/vagrant/bin"
