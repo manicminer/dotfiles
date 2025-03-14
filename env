@@ -23,6 +23,9 @@ done
 # Default pager (used by sensible-pager on debian)
 export PAGER=less
 
+# No pager for AWS CLI
+export AWS_PAGER=
+
 # Default editor preference
 for E in vim vi nano; do
   if which $E 2>/dev/null 1>/dev/null; then
