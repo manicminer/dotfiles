@@ -63,6 +63,9 @@ setopt completealiases
 [[ -f "${HOME}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
   source "${HOME}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
+# fzf
+which fzf 2>/dev/null 1>/dev/null && source <(fzf --zsh)
+
 # Local bash-style completions
 #if [[ -d "${HOME}/.bash-completions" ]]; then
 #  for F in "${HOME}/.bash-completions"/*; do
