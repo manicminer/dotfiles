@@ -77,8 +77,8 @@ export HOMEBREW_NO_ENV_HINTS=1
 [[ -d /usr/local/heroku/bin ]] && PATH="$PATH:/usr/local/heroku/bin"
 
 # Puppet
-[[ -d /opt/puppetlabs/bin ]] && PATH="${PATH}:/opt/puppetlabs/bin"
-[[ -d /opt/puppetlabs/pdk/bin ]] && PATH="${PATH}:/opt/puppetlabs/pdk/bin"
+#[[ -d /opt/puppetlabs/bin ]] && PATH="${PATH}:/opt/puppetlabs/bin"
+#[[ -d /opt/puppetlabs/pdk/bin ]] && PATH="${PATH}:/opt/puppetlabs/pdk/bin"
 
 # Ruby Gems on Arch Linux
 #if which ruby 2>&1 >/dev/null; then
