@@ -69,6 +69,7 @@ mkdir -pv "${HOME}/bin" && chmod 0755 "${HOME}/bin"
 #do_repo .base16-shell https://github.com/chriskempson/base16-shell
 #do_repo .goenv https://github.com/syndbg/goenv
 do_repo .liquidprompt https://github.com/manicminer/liquidprompt
+do_repo .nvm https://github.com/nvm-sh/nvm
 do_repo .pyenv https://github.com/yyuu/pyenv
 do_repo .pyenv/plugins/pyenv-virtualenv https://github.com/yyuu/pyenv-virtualenv
 #do_repo .rbenv https://github.com/rbenv/rbenv && mkdir -pv "${HOME}/.rbenv/plugins"

@@ -181,11 +181,7 @@ source_envrc() {
   rcfile="$(find_up "${_ENVRC}" "${PWD}")"
   [[ -n "${_ENVRC_SOURCED}" ]] && if [[ "${_ENVRC_SOURCED}" != "${rcfile}" ]] || [[ -z "${rcfile}" ]]; then
     echo $'\e[0;32mUnloading '"${_ENVRC_SOURCED}"'\e[0m'
-    if typeset -f "envrc_destroy" >/dev/null; then
-      envrc_destroy
-      unset -f envrc_destroy
-    fi
-    unset _ENVRC_SOURCED
+    unsource_envrc
   fi
   if [[ "${1}" == "reload" || ( -z "${_ENVRC_SOURCED}" && "${PWD}" != "${HOME}" && -r "${rcfile}" ) ]]; then
     [[ -f "${_ENVRC_SUMFILE}" ]] || touch "${_ENVRC_SUMFILE}"
@@ -198,6 +194,14 @@ source_envrc() {
       echo $'\e[0;31mUnknown '"${_ENVRC}"' found at '"${rcfile}"'. Run `envrc allow` to approve\e[0m' >&2
     fi
   fi
+}
+
+unsource_envrc() {
+  if typeset -f "envrc_destroy" >/dev/null; then
+    envrc_destroy
+    unset -f envrc_destroy
+  fi
+  unset _ENVRC_SOURCED
 }
 
 envrc() {
@@ -229,7 +233,7 @@ envrc() {
       [[ "${_dir}" == "${PWD}" ]] && source_envrc reload
       ;;
     "reload")
-      _ENVRC_SOURCED=
+      unsource_envrc
       chpwd
       ;;
     "revoke")
@@ -281,5 +285,15 @@ az_version() {
   [[ -d "${HOME}/.azure-${version}" ]] && mv "${HOME}/.azure-${version}" "${HOME}/.azure"
   az version
 }
+
+# JetBrains wrappers
+clion() { exec "${HOME}"/bin/jetbrains/clion "$@" 2>/dev/null 1>/dev/null &! }
+datagrip() { exec "${HOME}"/bin/jetbrains/datagrip "$@" 2>/dev/null 1>/dev/null &! }
+goland() { exec "${HOME}"/bin/jetbrains/goland "$@" 2>/dev/null 1>/dev/null &! }
+idea() { exec "${HOME}"/bin/jetbrains/idea "$@" 2>/dev/null 1>/dev/null &! }
+pycharm() { exec "${HOME}"/bin/jetbrains/pycharm "$@" 2>/dev/null 1>/dev/null &! }
+rider() { exec "${HOME}"/bin/jetbrains/rider "$@" 2>/dev/null 1>/dev/null &! }
+webstorm() { exec "${HOME}"/bin/jetbrains/webstorm "$@" 2>/dev/null 1>/dev/null &! }
+
 
 # vim: set ft=zsh ts=2 sts=2 sw=2 et:

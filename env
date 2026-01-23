@@ -1,3 +1,14 @@
+# Determine platform
+uname="$(uname -a)"
+if [[ "${uname}" =~ "Darwin" ]]; then
+  PLATFORM=MacOS
+elif [[ "${uname}" =~ "Linux" ]]; then
+  PLATFORM=Linux
+else
+  PLATFORM="$(uname)"
+fi
+export PLATFORM
+
 # Determine shell
 if [[ -n "${ZSH_VERSION}" ]]; then
   _SHELL=zsh
@@ -13,12 +24,14 @@ GIT_AUTHOR_EMAIL=$EMAIL
 export EMAIL GIT_AUTHOR_EMAIL
 
 # Default browser preference (used by sensible-browser on debian)
-for B in firefox chrome chromium elinks links2; do 
-  if which $B 2>/dev/null 1>/dev/null; then
-    export BROWSER=$B
-    break
-  fi
-done
+if [[ "${PLATFORM}" == "MacOS" ]]; then
+  for B in firefox chrome chromium elinks links2; do 
+    if which $B 2>/dev/null 1>/dev/null; then
+      export BROWSER=$B
+      break
+    fi
+  done
+fi
 
 # Default pager (used by sensible-pager on debian)
 export PAGER=less
@@ -116,6 +129,12 @@ fi
 [[ -d "/usr/local/go/bin" ]] && PATH="${PATH}:/usr/local/go/bin"
 [[ -d "${HOME}/go/bin" ]] && PATH="${PATH}:${HOME}/go/bin"
 
+# nvm
+if [[ -d "${HOME}/.nvm" ]]; then
+  export NVM_DIR="${HOME}/.nvm"
+  source "${NVM_DIR}/nvm.sh"
+fi
+
 # rbenv
 [[ -d "${HOME}/.rbenv" ]] && PATH="${HOME}/.rbenv/bin:${PATH}"
 
@@ -131,17 +150,6 @@ which tfenv 1>/dev/null 2>/dev/null || PATH="${HOME}/.tfenv/bin:${PATH}"
 
 # Export path
 export PATH
-
-# Determine platform
-uname="$(uname -a)"
-if [[ "${uname}" =~ "Darwin" ]]; then
-  PLATFORM=MacOS
-elif [[ "${uname}" =~ "Linux" ]]; then
-  PLATFORM=Linux
-else
-  PLATFORM="$(uname)"
-fi
-export PLATFORM
 
 # golang
 #[ -d "/usr/local/go" ]] && export GOROOT="/usr/local/go"

@@ -16,6 +16,7 @@
 
 [commit]
   gpgsign = true
+  verbose = true
 
 [core]
   autocrlf = false
@@ -64,6 +65,9 @@
 
 [push]
   default = simple
+
+[rebase]
+  instructionFormat = "(%an <%ae>) %s"
 
 [user]
   name = Tom Bamford

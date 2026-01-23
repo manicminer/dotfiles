@@ -175,6 +175,9 @@ if [[ -n "${ITERM_SESSION_ID}" ]]; then
   precmd
 fi
 
+# Atuin
+which atuin 2>/dev/null 1>/dev/null && eval "$(atuin init zsh)"
+
 # Site-local zshrc
 [[ -e "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
 
