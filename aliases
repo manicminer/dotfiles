@@ -46,4 +46,6 @@ fi
 
 which hub 2>/dev/null 1>/dev/null && alias git=hub
 
+[[ -x "${HOME}/.local/venv/azure-cli/bin/az" ]] && alias az="${HOME}/.local/venv/azure-cli/bin/az"
+
 # vim: set ft=sh ts=2 sts=2 sw=2 et:
