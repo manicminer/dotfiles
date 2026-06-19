@@ -300,6 +300,7 @@ clion() { exec "${HOME}"/bin/jetbrains/clion "$@" 2>/dev/null 1>/dev/null &! }
 datagrip() { exec "${HOME}"/bin/jetbrains/datagrip "$@" 2>/dev/null 1>/dev/null &! }
 goland() { exec "${HOME}"/bin/jetbrains/goland "$@" 2>/dev/null 1>/dev/null &! }
 idea() { exec "${HOME}"/bin/jetbrains/idea "$@" 2>/dev/null 1>/dev/null &! }
+phpstorm() { exec "${HOME}"/bin/jetbrains/phpstorm "$@" 2>/dev/null 1>/dev/null &! }
 pycharm() { exec "${HOME}"/bin/jetbrains/pycharm "$@" 2>/dev/null 1>/dev/null &! }
 rider() { exec "${HOME}"/bin/jetbrains/rider "$@" 2>/dev/null 1>/dev/null &! }
 webstorm() { exec "${HOME}"/bin/jetbrains/webstorm "$@" 2>/dev/null 1>/dev/null &! }
