@@ -176,7 +176,11 @@ if [[ -n "${ITERM_SESSION_ID}" ]]; then
 fi
 
 # Atuin
-which atuin 2>/dev/null 1>/dev/null && eval "$(atuin init zsh)"
+#which atuin 2>/dev/null 1>/dev/null && eval "$(atuin init zsh)"
+
+# Linuxbrew
+[[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && \
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 
 # Site-local zshrc
 [[ -e "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
