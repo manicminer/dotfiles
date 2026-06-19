@@ -197,6 +197,9 @@ export GPG_TTY="$(tty)"
 # Azure Developer CLI (azd) no telemetry
 export AZURE_DEV_COLLECT_TELEMETRY=no
 
+# Dotnet no telemetry
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
 # ulimit on MacOS
 [ "${PLATFORM}" = "MacOS" ] && ulimit -n 10240
 
