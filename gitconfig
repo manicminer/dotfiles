@@ -5,10 +5,12 @@
   b = branch -vv --sort=-committerdate
   co = checkout
   fp = !git fetch -p && git pull && git submodule update --init
+  lg = log --date=relative --pretty=format:"%h%x09%an%x09%ad%x09%s"
   g = grep --break --heading --line-number
   graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
   latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short) [%(committername)] %(contents:subject)'
   root = !pwd
+  show = show --show-signature
   st = status -sb
 
 [color]
@@ -40,9 +42,14 @@
 
 [gc]
   auto = 0
+  pruneExpire = 1.year.ago
+  reflogExpire = 1.year.ago
 
 [gpg]
   program = gpg
+
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_signers
 
 [grep]
   extendRegexp = true
@@ -52,10 +59,13 @@
   autocorrect = 5
 
 [http]
-	cookiefile = /Users/tom/.gitcookies
+	cookiefile = ~/.gitcookies
 
 [init]
   defaultBranch = main
+
+[log]
+  # showSignature = true
 
 [merge]
   renamelimit = 999999
@@ -73,3 +83,5 @@
   name = Tom Bamford
   email = tom@bamford.io
 	signingkey = F70C3D21
+[gui]
+	recentrepo = /home/tom/git/defra/ipaffs-infra
