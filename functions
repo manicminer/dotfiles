@@ -286,6 +286,15 @@ az_version() {
   az version
 }
 
+jwt_decode() {
+  local jqprog='split(".") |.[0:2] | map(gsub("-"; "+") | gsub("_"; "/") | gsub("%3D"; "=") | @base64d) | map(fromjson)'
+  if [[ "${1}" == "" ]]; then
+    jq -R $jqprog
+  else
+    jq -R $jqprog <<< $1
+  fi
+}
+
 # JetBrains wrappers
 clion() { exec "${HOME}"/bin/jetbrains/clion "$@" 2>/dev/null 1>/dev/null &! }
 datagrip() { exec "${HOME}"/bin/jetbrains/datagrip "$@" 2>/dev/null 1>/dev/null &! }
