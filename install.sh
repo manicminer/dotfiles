@@ -55,9 +55,10 @@ get_file() {
 }
 
 mkdir -pv "${HOME}/.azure"
+mkdir -pv "${HOME}/.config/git"
 mkdir -pv "${HOME}/.gnupg"
 chmod 0700 "${HOME}/.gnupg"
-mkdir -pv "${HOME}/.pyenv" && chmod 0755 "${HOME}/.pyenv"
+#mkdir -pv "${HOME}/.pyenv" && chmod 0755 "${HOME}/.pyenv"
 mkdir -pv "${HOME}/.ssh" && chmod 0700 "${HOME}/.ssh"
 chmod -v 0640 "${DIR}/ssh"/*
 mkdir -pv "${HOME}/.vim"/{autoload,colors}
@@ -69,19 +70,19 @@ mkdir -pv "${HOME}/bin" && chmod 0755 "${HOME}/bin"
 #do_repo .base16-shell https://github.com/chriskempson/base16-shell
 #do_repo .goenv https://github.com/syndbg/goenv
 do_repo .liquidprompt https://github.com/manicminer/liquidprompt
-do_repo .nvm https://github.com/nvm-sh/nvm
-do_repo .pyenv https://github.com/yyuu/pyenv
-do_repo .pyenv/plugins/pyenv-virtualenv https://github.com/yyuu/pyenv-virtualenv
+#do_repo .nvm https://github.com/nvm-sh/nvm
+#do_repo .pyenv https://github.com/yyuu/pyenv
+#do_repo .pyenv/plugins/pyenv-virtualenv https://github.com/yyuu/pyenv-virtualenv
 #do_repo .rbenv https://github.com/rbenv/rbenv && mkdir -pv "${HOME}/.rbenv/plugins"
 #do_repo .rbenv/plugins/ruby-build https://github.com/rbenv/ruby-build
-do_repo .tfenv https://github.com/tfutils/tfenv
+#do_repo .tfenv https://github.com/tfutils/tfenv
 do_repo .zsh/pure https://github.com/sindresorhus/pure
 do_repo .zsh/zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
 get_file https://raw.githubusercontent.com/Azure/azure-cli/dev/az.completion .az.completion
 
 [ -e "${HOME}/bin/authorize-aws" ] || ln ${LN_FLAGS} "../.authorize-aws/authorize-aws" "${HOME}/bin/authorize-aws"
 
-DOTFILES="aliases bash-completions bashrc colordiffrc curlrc-local env functions gitconfig gitignore_global ideavimrc iterm2_shell_integration.zsh liquidpromptrc my.cnf ssh/authorized_keys ssh/config ssh/rc tmux.conf vim/autoload/plug.vim vim/colors/base16*.vim vimrc zshrc"
+DOTFILES="aliases bash-completions bashrc colordiffrc config/git/allowed_signers curlrc-local env functions gitconfig gitignore_global ideavimrc iterm2_shell_integration.zsh liquidpromptrc my.cnf ssh/authorized_keys ssh/config ssh/rc tmux.conf vim/autoload/plug.vim vim/colors/base16*.vim vimrc zshrc"
 
 out Linking dotfiles
 echo -n $'\e[0;92m'
